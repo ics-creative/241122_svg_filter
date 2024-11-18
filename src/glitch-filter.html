@@ -3,16 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>グリッチノイズ</title>
+  <title>グリッチエフェクト</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    .imageWrapper {
+      width: 1000px;
+      overflow: hidden;
+    }
+    .imageWrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: inherit;
+      height: 100%;
+      background-image: repeating-linear-gradient(transparent, transparent 6px, #0006 6px, #0006 8px);
+      filter: blur(2px);
+      mix-blend-mode: overlay;
+    }
+
+    .image {
+      display: block;
+      filter: url(#filter);
+    }
+  </style>
 </head>
 <body>
-<div>
-  <img src="ab_03.jpg" alt="" class="box2">
-  <div class="stripe"></div>
+
+<div class="imageWrapper">
+  <img src="images/ab_03.jpg" alt="" class="image">
 </div>
 
-<svg width="0px" height="0px" xmlns="http://www.w3.org/2000/svg">
-  <filter id="filter-6">
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <filter id="filter">
     <!-- 色チャンネルを分解 -->
     <!-- 元の画像から G チャンネルだけ抽出し「g」として登録 -->
     <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/>
@@ -32,17 +59,17 @@
         baseFrequency='0 0.02'
         numOctaves='3'
     />
-    <!-- 輝度から白黒へ -->
+    <!-- 輝度をアルファに（輝度が低い領域はより透明になり、輝度が高い領域はより不透明になる） -->
     <feColorMatrix type="luminanceToAlpha"/>
     <feComponentTransfer>
-      <!-- 白黒2値化 -->
       <feFuncA type="linear" slope="1.2"/>
+      <!-- 白黒2値化 -->
       <feFuncA type="discrete" tableValues="0,1"/>
     </feComponentTransfer>
     <!-- 黒い部分だけ合体し、水平方向にずらす -->
     <feComposite in2="rgb-layers" in="" operator="xor"/>
     <feOffset dx="8" dy="0" />
-    <!-- rレイヤーだけずらしておいた画像と合体 -->
+    <!-- Rレイヤーだけずらしておいた画像と合体 -->
     <feComposite in2="rgb-layers" in="" operator="over" result="wip1"/>
 
     <!-- ずらし2回目（値を変えて同じ工程を繰り返す） -->

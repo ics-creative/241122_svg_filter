@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ドット絵風</title>
+  <style>
+    .image {
+      display: block;
+      filter: url(#filter);
+    }
+  </style>
+</head>
+<body>
+<img src="images/ab_03.jpg" alt="" class="image">
+
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <filter id="filter">
+    <!-- 少し明るめに調整する -->
+    <feComponentTransfer>
+      <feFuncR type="linear" slope="1.2"/>
+      <feFuncG type="linear" slope="1.2"/>
+      <feFuncB type="linear" slope="1.2"/>
+    </feComponentTransfer>
+
+    <!-- 色の階調を減らし、ここまでの調整結果を「color」として登録しておく」 -->
+    <feComponentTransfer result="color">
+      <feFuncR type="discrete" tableValues="0,0.5,1"/>
+      <feFuncG type="discrete" tableValues="0,0.5,1"/>
+      <feFuncB type="discrete" tableValues="0,0.5,1"/>
+    </feComponentTransfer>
+
+    <!-- タイル -->
+    <feFlood x="2" y="2" width="1" height="1"/>
+    <fecomposite in2="" width="4" height="4"/>
+    <feTile />
+    <fecomposite in="color" in2="" operator="in"/>
+    <!-- グリッドサイズを膨張（2px分） -->
+    <feMorphology operator="dilate" radius="2"/>
+  </filter>
+</svg>
+</body>
+</html>
