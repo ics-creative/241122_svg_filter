@@ -12,18 +12,11 @@
   </style>
 </head>
 <body>
-<img src="images/ab_03.jpg" alt="" class="image">
+<img src="images/ab_03.jpg" width="512" height="384" alt="" class="image">
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <!-- 少し明るめに調整する -->
-    <feComponentTransfer>
-      <feFuncR type="linear" slope="1.2"/>
-      <feFuncG type="linear" slope="1.2"/>
-      <feFuncB type="linear" slope="1.2"/>
-    </feComponentTransfer>
-
-    <!-- 色の階調を減らし、ここまでの調整結果を「color」として登録しておく」 -->
+    <!-- 色の階調を減らし、ここまでの調整結果を「color」として登録しておく -->
     <feComponentTransfer result="color">
       <feFuncR type="discrete" tableValues="0,0.5,1"/>
       <feFuncG type="discrete" tableValues="0,0.5,1"/>
@@ -32,10 +25,10 @@
 
     <!-- タイル -->
     <feFlood x="2" y="2" width="1" height="1"/>
-    <fecomposite in2="" width="4" height="4"/>
+    <feComposite in2="" width="4" height="4"/>
     <feTile />
-    <fecomposite in="color" in2="" operator="in"/>
-    <!-- グリッドサイズを膨張（2px分） -->
+    <feComposite in="color" in2="" operator="in"/>
+    <!-- タイルのサイズを膨張 -->
     <feMorphology operator="dilate" radius="2"/>
   </filter>
 </svg>

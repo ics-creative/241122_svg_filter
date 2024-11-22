@@ -12,7 +12,8 @@
     }
 
     .imageWrapper {
-      width: 1000px;
+      width: 512px;
+      height: 384px;
       overflow: hidden;
     }
     .imageWrapper::after {
@@ -20,7 +21,7 @@
       position: absolute;
       top: 0;
       width: inherit;
-      height: 100%;
+      height: inherit;
       background-image: repeating-linear-gradient(transparent, transparent 6px, #0006 6px, #0006 8px);
       filter: blur(2px);
       mix-blend-mode: overlay;
@@ -35,9 +36,10 @@
 <body>
 
 <div class="imageWrapper">
-  <img src="images/ab_03.jpg" alt="" class="image">
+  <img src="images/ab_03.jpg" width="512" height="384" alt="" class="image">
 </div>
 
+<!-- グリッチノイズフィルター -->
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
     <!-- 色チャンネルを分解 -->
@@ -54,57 +56,38 @@
 
     <!-- ずらし1回目 -->
     <!-- 水平方向に伸びたフラクタルノイズを追加 -->
-    <feTurbulence
-        type='fractalNoise'
-        baseFrequency='0 0.02'
-        numOctaves='3'
-    />
+    <feTurbulence type="fractalNoise" baseFrequency="0 0.02" numOctaves="3"/>
     <!-- 輝度をアルファに（輝度が低い領域はより透明になり、輝度が高い領域はより不透明になる） -->
     <feColorMatrix type="luminanceToAlpha"/>
     <feComponentTransfer>
-      <feFuncA type="linear" slope="1.2"/>
-      <!-- 白黒2値化 -->
+      <!-- 透明と黒で2値化 -->
       <feFuncA type="discrete" tableValues="0,1"/>
     </feComponentTransfer>
     <!-- 黒い部分だけ合体し、水平方向にずらす -->
-    <feComposite in2="rgb-layers" in="" operator="xor"/>
+    <feComposite in2="rgb-layers" operator="xor"/>
     <feOffset dx="8" dy="0" />
     <!-- Rレイヤーだけずらしておいた画像と合体 -->
-    <feComposite in2="rgb-layers" in="" operator="over" result="wip1"/>
+    <feComposite in2="rgb-layers" operator="over" result="wip1"/>
 
     <!-- ずらし2回目（値を変えて同じ工程を繰り返す） -->
-    <feTurbulence
-        type='fractalNoise'
-        baseFrequency='0 0.01'
-        numOctaves='1'
-        stitchTiles='stitch'
-        seed="5"
-    />
+    <feTurbulence type="fractalNoise" baseFrequency="0 0.01" numOctaves="4" seed="5"/>
     <feColorMatrix type="luminanceToAlpha"/>
     <feComponentTransfer>
-      <feFuncA type="linear" slope="1.2"/>
       <feFuncA type="discrete" tableValues="0,1"/>
     </feComponentTransfer>
     <feComposite in2="rgb-layers" operator="xor"/>
     <feOffset dx="2" dy="0"/>
-    <feComposite in2="wip1" in="" operator="over" result="wip2"/>
+    <feComposite in2="wip1" operator="over" result="wip2"/>
 
     <!-- ずらし3回目 -->
-    <feTurbulence
-        type='fractalNoise'
-        baseFrequency='0 0.01'
-        numOctaves='4'
-        stitchTiles='stitch'
-        seed="10"
-    />
+    <feTurbulence type="fractalNoise" baseFrequency="0 0.01" numOctaves="3" seed="8"/>
     <feColorMatrix type="luminanceToAlpha"/>
     <feComponentTransfer>
-      <feFuncA type="linear" slope="1.2"/>
       <feFuncA type="discrete" tableValues="0,1"/>
     </feComponentTransfer>
     <feComposite in2="rgb-layers" operator="xor"/>
-    <feOffset dx="-14" dy="0"/>
-    <feComposite in2="wip2" in="" operator="over" />
+    <feOffset dx="-15" dy="0"/>
+    <feComposite in2="wip2" operator="over" />
   </filter>
 </svg>
 </body>

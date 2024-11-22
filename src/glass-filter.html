@@ -12,6 +12,8 @@
     }
 
     .image {
+      width: 50%;
+      height: 50%;
       display: block;
       filter: url(#filter);
     }
@@ -19,21 +21,12 @@
 </head>
 <body>
 
-<img src="images/ab_03.jpg" alt="" class="image">
+<img src="images/ab_03.jpg" width="1024" height="768" alt="" class="image">
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <feTurbulence
-        type='fractalNoise'
-        baseFrequency='0.5'
-        numOctaves='5'
-        stitchTiles='stitch'/>
-
-    <feDisplacementMap
-        in="SourceGraphic"
-        in2=""
-        scale="50"
-    />
+    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2"/>
+    <feDisplacementMap in="SourceGraphic" in2="" scale="20"/>
   </filter>
 </svg>
 </body>
