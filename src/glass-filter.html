@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>すりガラス風フィルター</title>
+  <title>ガラス風フィルター</title>
   <style>
     html, body {
       width: 100%;
@@ -12,8 +12,6 @@
     }
 
     .image {
-      width: 50%;
-      height: 50%;
       display: block;
       filter: url(#filter);
     }
@@ -25,8 +23,8 @@
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2"/>
-    <feDisplacementMap in="SourceGraphic" in2="" scale="20"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2"/>
+    <feDisplacementMap in="SourceGraphic" in2="" scale="10" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </svg>
 </body>
