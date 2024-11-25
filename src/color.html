@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVGの色計算</title>
+</head>
+<body>
+<fieldset>
+  <legend>入力した色をSVG用の数値に変換</legend>
+  <label><input type="color" class="colorPicker"></label>
+  <label><input type="color" class="colorPicker"></label>
+  <label><input type="color" class="colorPicker"></label>
+  <label><input type="color" class="colorPicker"></label>
+  <label><input type="color" class="colorPicker"></label>
+
+  <p>コピペしてお使いください</p>
+  <ul>
+    <li>&lt;feFuncR type="table" tableValues="<span id="red"></span>"/&gt;</li>
+    <li>&lt;feFuncG type="table" tableValues="<span id="green"></span>"/&gt;</li>
+    <li>&lt;feFuncB type="table" tableValues="<span id="blue"></span>"/&gt;</li>
+  </ul>
+</fieldset>
+
+<svg width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+  <linearGradient id="gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" y2="0">
+    <stop offset="0" id="stop0"></stop>
+    <stop offset="0.25" id="stop1"></stop>
+    <stop offset="0.5" id="stop2"></stop>
+    <stop offset="0.75" id="stop3"></stop>
+    <stop offset="1" id="stop4"></stop>
+  </linearGradient>
+  <rect width="100%" height="100%" fill="url(#gradient)" />
+</svg>
+
+<script>
+  const colorPicker = document.querySelectorAll(".colorPicker");
+  const red = document.querySelector("#red");
+  const green = document.querySelector("#green");
+  const blue = document.querySelector("#blue");
+
+  const redArray = [0, 0, 0, 0, 0]
+  const greenArray = [0, 0, 0, 0, 0]
+  const blueArray = [0, 0, 0, 0, 0]
+
+  colorPicker.forEach((element, index) => {
+    element.addEventListener("change", (e) => {
+      const color = hexToSvgRGB(e.target.value);
+      redArray[index] = color.r;
+      greenArray[index] = color.g;
+      blueArray[index] = color.b;
+
+      document.getElementById(`stop${index}`).setAttribute("stop-color", e.target.value);
+
+      red.innerText = redArray;
+      green.innerText = greenArray;
+      blue.innerText = blueArray;
+    });
+  })
+
+  function hexToSvgRGB(hex) {
+    // Check if the first character is '#'
+    const startIndex = (hex.charAt(0) === '#') ? 1 : 0;
+    // Convert hex to RGB
+    const red = parseInt(hex.substring(startIndex, startIndex + 2), 16);
+    const green = parseInt(hex.substring(startIndex + 2, startIndex + 4), 16);
+    const blue = parseInt(hex.substring(startIndex + 4, startIndex + 6), 16);
+    return {r: toSVGColor(red), g: toSVGColor(green), b: toSVGColor(blue)};
+  }
+
+  // SVGで扱うため、0 〜 1 に変換（割り切れないことが多いのである程度まるめておく）
+  function toSVGColor(value) {
+    const result = Math.round((value / 255) * 100) / 100
+    return result.toFixed(2);
+  }
+</script>
+</body>
+</html>

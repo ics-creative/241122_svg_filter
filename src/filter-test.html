@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVGフィルターの検証</title>
+  <style>
+    body{
+      font-family: sans-serif;
+    }
+    .image {
+      display: block;
+      filter: url(filters/filter.svg#filter);
+    }
+  </style>
+</head>
+<body>
+<h1>SVGフィルターの検証</h1>
+<h2>外部リソースの検証（動くブラウザもある）</h2>
+<img src="images/image-1.jpg" alt="" class="image">
+
+<h2>videoタグの検証（描画負荷が軽めのフィルターなら動くブラウザもある）</h2>
+<video src="images/video.mp4" class="image" autoplay loop muted></video>
+</body>
+</html>

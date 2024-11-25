@@ -3,14 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ストライプフィルター</title>
+  <title>グラデーションマップとストライプなフィルター</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
     .image {
       display: block;
       filter: url(#filter);
@@ -18,24 +13,18 @@
   </style>
 </head>
 <body>
-
-<img src="images/ab_02.jpg" width="500" height="800" alt="" class="image">
-<img src="images/ab_09.jpg" width="500" height="800" alt="" class="image">
+<img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
+<img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <!-- 少しぼかす -->
-    <feGaussianBlur in="SourceGraphic" stdDeviation="1.2"/>
-    <!-- 白黒化 -->
-    <fecolormatrix type="saturate" values="0"/>
-
-    <!-- 横線 -->
-    <fecolormatrix type="luminanceToAlpha" in="SourceGraphic"/>
+    <!-- 横線（画像の暗い部分を描画） -->
+    <fecolormatrix type="luminanceToAlpha"/>
     <feComponentTransfer result="mono">
       <feFuncA type="linear" slope="-1" intercept="1"/>
     </feComponentTransfer>
-    <feFlood x="0" y="0" width="5" height="2"/>
-    <feComposite in2="" width="5" height="5"/>
+    <feFlood x="0" y="0" width="600" height="2"/>
+    <feComposite in2="" width="600" height="5"/>
     <feTile/>
     <feComposite in="mono" in2="" operator="in"/>
     <feGaussianBlur stdDeviation="1"/>
@@ -43,7 +32,7 @@
       <feFuncA type="linear" slope="15" intercept="-5"/>
     </feComponentTransfer>
 
-    <feComponentTransfer>
+    <feComponentTransfer result="stripe">
       <!-- 線を青めにする -->
       <feFuncG type="linear" slope="-1" intercept="0.3"/>
       <feFuncB type="linear" slope="-1" intercept="1"/>
@@ -51,13 +40,21 @@
       <feFuncA type="linear" slope="0.8"/>
     </feComponentTransfer>
 
-    <!-- 元の画像と合成 -->
-    <feBlend in="SourceGraphic" in2="" mode="multiply" result="color"/>
+    <!-- グラデーションマップ -->
+    <feGaussianBlur stdDeviation="1" in="SourceGraphic"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0.34,0.53,0.33,1.00,0.82"/>
+      <feFuncG type="table" tableValues="0.00,0.27,0.72,0.78,0.98"/>
+      <feFuncB type="table" tableValues="0.14,0.41,0.75,0.89,1.00"/>
+    </feComponentTransfer>
+
+    <!-- 画像と横線を合成 -->
+    <feBlend in2="stripe" mode="multiply" result="color"/>
 
     <!-- はみ出したフィルターを元の画像サイズでクリッピング -->
     <feComposite in2="SourceGraphic" operator="in"/>
   </filter>
 </svg>
-
 </body>
 </html>

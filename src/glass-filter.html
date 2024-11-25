@@ -4,13 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ガラス風フィルター</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
     .image {
       display: block;
       filter: url(#filter);
@@ -18,8 +13,9 @@
   </style>
 </head>
 <body>
-
-<img src="images/ab_03.jpg" width="1024" height="768" alt="" class="image">
+<!-- フィルターを適用したい画像 -->
+<img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
+<img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">

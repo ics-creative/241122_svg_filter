@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ドット絵風</title>
+  <title>ドット絵風フィルター</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
     .image {
       display: block;
@@ -12,11 +13,12 @@
   </style>
 </head>
 <body>
-<img src="images/ab_03.jpg" width="512" height="384" alt="" class="image">
+<img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
+<img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
 
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <!-- 色の階調を減らし、ここまでの調整結果を「color」として登録しておく -->
+    <!-- 色の階調を減らす -->
     <feComponentTransfer result="color">
       <feFuncR type="discrete" tableValues="0,0.5,1"/>
       <feFuncG type="discrete" tableValues="0,0.5,1"/>
@@ -27,7 +29,10 @@
     <feFlood x="2" y="2" width="1" height="1"/>
     <feComposite in2="" width="4" height="4"/>
     <feTile />
+
+    <!-- 画像とタイルの重なり部分を合成 -->
     <feComposite in="color" in2="" operator="in"/>
+
     <!-- タイルのサイズを膨張 -->
     <feMorphology operator="dilate" radius="2"/>
   </filter>

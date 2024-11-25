@@ -1,0 +1,13 @@
+/* レイアウト用のスタイルです */
+html, body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  display: grid;
+  place-items: center;
+  gap: 48px;
+}

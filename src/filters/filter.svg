@@ -1,0 +1,21 @@
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+    <filter id="filter">
+        <!-- 色の階調を減らす -->
+        <feComponentTransfer result="color">
+            <feFuncR type="discrete" tableValues="0,0.5,1"/>
+            <feFuncG type="discrete" tableValues="0,0.5,1"/>
+            <feFuncB type="discrete" tableValues="0,0.5,1"/>
+        </feComponentTransfer>
+
+        <!-- タイル -->
+        <feFlood x="2" y="2" width="1" height="1"/>
+        <feComposite in2="" width="4" height="4"/>
+        <feTile />
+
+        <!-- 画像とタイルの重なり部分を合成 -->
+        <feComposite in="color" in2="" operator="in"/>
+
+        <!-- タイルのサイズを膨張 -->
+        <feMorphology operator="dilate" radius="2"/>
+    </filter>
+</svg>

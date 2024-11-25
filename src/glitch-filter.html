@@ -4,24 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>グリッチエフェクト</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
     .imageWrapper {
-      width: 512px;
-      height: 384px;
-      overflow: hidden;
+      position: relative;
+      clip-path: inset(15px); /* ズレの部分を隠すため内側にクリッピング */
     }
     .imageWrapper::after {
       content: "";
       position: absolute;
-      top: 0;
-      width: inherit;
-      height: inherit;
+      inset: 0;
       background-image: repeating-linear-gradient(transparent, transparent 6px, #0006 6px, #0006 8px);
       filter: blur(2px);
       mix-blend-mode: overlay;
@@ -34,20 +26,24 @@
   </style>
 </head>
 <body>
+<div class="imageWrapper">
+  <!-- フィルターを適用したい画像 -->
+  <img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
+</div>
 
 <div class="imageWrapper">
-  <img src="images/ab_03.jpg" width="512" height="384" alt="" class="image">
+  <img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
 </div>
 
 <!-- グリッチノイズフィルター -->
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
     <!-- 色チャンネルを分解 -->
-    <!-- 元の画像から G チャンネルだけ抽出し「g」として登録 -->
+    <!-- G チャンネル -->
     <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/>
-    <!-- 元の画像から B チャンネルだけ抽出し「b」として登録 -->
+    <!-- B チャンネル -->
     <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="b"/>
-    <!-- 元の画像から R チャンネルだけ抽出し、少しずらす -->
+    <!-- R チャンネルを少しずらす -->
     <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
     <feOffset dx="8" dy="0"/>
     <!-- G/B を比較(明)モードで重ね、「rgb-layers」として登録しておく -->
