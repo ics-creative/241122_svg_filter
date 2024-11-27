@@ -10,6 +10,8 @@
       position: relative;
       clip-path: inset(15px); /* ズレの部分を隠すため内側にクリッピング */
     }
+
+    /* 走査線 */
     .imageWrapper::after {
       content: "";
       position: absolute;
@@ -35,7 +37,11 @@
   <img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
 </div>
 
-<!-- グリッチノイズフィルター -->
+<div class="imageWrapper">
+  <img src="images/image-3.jpg" width="512" height="512" alt="" class="image">
+</div>
+
+<!-- フィルター -->
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
     <!-- 色チャンネルを分解 -->
@@ -61,7 +67,7 @@
     </feComponentTransfer>
     <!-- 黒い部分だけ合体し、水平方向にずらす -->
     <feComposite in2="rgb-layers" operator="xor"/>
-    <feOffset dx="8" dy="0" />
+    <feOffset dx="8" dy="0"/>
     <!-- Rレイヤーだけずらしておいた画像と合体 -->
     <feComposite in2="rgb-layers" operator="over" result="wip1"/>
 
@@ -83,8 +89,10 @@
     </feComponentTransfer>
     <feComposite in2="rgb-layers" operator="xor"/>
     <feOffset dx="-15" dy="0"/>
-    <feComposite in2="wip2" operator="over" />
+    <feComposite in2="wip2" operator="over"/>
   </filter>
 </svg>
+
+<a href="../index.html">目次へ戻る</a>
 </body>
 </html>

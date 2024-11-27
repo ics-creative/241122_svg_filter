@@ -15,33 +15,25 @@
 <body>
 <img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
 <img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
+<img src="images/image-3.jpg" width="512" height="512" alt="" class="image">
 
-<svg width="100%" height="0" xmlns="http://www.w3.org/2000/svg">
+<!-- フィルター -->
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
-    <!-- 周辺減光 -->
-    <feComponentTransfer result="photo">
-      <feFuncR type="linear" slope="0.5"/>
-      <feFuncG type="linear" slope="0.5"/>
-      <feFuncB type="linear" slope="0.5"/>
-    </feComponentTransfer>
-    <feSpecularLighting specularConstant="2" specularExponent="20" lighting-color="white">
-      <fePointLight x="480" y="270" z="500"/>
-    </feSpecularLighting>
-    <feBlend in="" in2="photo" mode="overlay" result="vignetting"/>
-
     <!-- ざらざらノイズ -->
     <feTurbulence type="turbulence" baseFrequency="0.5" numOctaves="5"/>
     <!-- アルファチャンネルのコントラストを下げる（少し透明にする） -->
     <feComponentTransfer>
-      <feFuncA type="linear" slope="0.6"/>
+      <feFuncA type="linear" slope="0.5"/>
     </feComponentTransfer>
-
     <!-- オーバーレイで合成 -->
-    <feBlend in="" in2="vignetting" mode="overlay"/>
+    <feBlend in2="SourceGraphic" mode="multiply"/>
 
     <!-- はみ出したフィルターを元の画像サイズでクリッピング -->
-    <feComposite in2="SourceGraphic" operator="in" />
+    <feComposite in2="SourceGraphic" operator="in"/>
   </filter>
 </svg>
+
+<a href="../index.html">目次へ戻る</a>
 </body>
 </html>

@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SVGフィルターの検証</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
-    body{
-      font-family: sans-serif;
-    }
     .image {
       display: block;
       filter: url(filters/filter.svg#filter);
+    }
+
+    .text {
+      display: block;
+      font-weight: bold;
+      font-size: 56px;
+      color: crimson;
+      filter: url(#distortion);
     }
   </style>
 </head>
@@ -19,7 +25,25 @@
 <h2>外部リソースの検証（動くブラウザもある）</h2>
 <img src="images/image-1.jpg" alt="" class="image">
 
-<h2>videoタグの検証（描画負荷が軽めのフィルターなら動くブラウザもある）</h2>
+<h2>videoタグの検証（動くブラウザもある）</h2>
 <video src="images/video.mp4" class="image" autoplay loop muted></video>
+
+<h2>その他要素への検証</h2>
+<p>ただの文字なのでコピペできます。<br><span class="text">ABC漢字あいう🌟😺☔️</span></p>
+<label>
+  使い所は注意ですがinput要素などにもフィルターできます。<br>
+  <input type="text" class="text" placeholder="テキストボックス">
+</label>
+<div class="box"></div>
+
+<!-- フィルター -->
+<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <filter id="distortion">
+    <feTurbulence type="fractalNoise" baseFrequency="0 0.3" numOctaves="2"/>
+    <feDisplacementMap in="SourceGraphic" in2="" scale="20"/>
+  </filter>
+</svg>
+
+<a href="../index.html">目次へ戻る</a>
 </body>
 </html>

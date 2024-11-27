@@ -9,15 +9,16 @@
     .image {
       display: block;
       filter: url(#filter);
-      clip-path: inset(15px); /* ズレの部分を隠すため内側にクリッピング */
+      clip-path: inset(0 10px); /* ズレの部分を隠すため内側にクリッピング */
     }
   </style>
 </head>
 <body>
-<!-- フィルターを適用したい画像 -->
 <img src="images/image-1.jpg" width="512" height="384" alt="" class="image">
 <img src="images/image-2.jpg" width="480" height="640" alt="" class="image">
+<img src="images/image-3.jpg" width="512" height="512" alt="" class="image">
 
+<!-- フィルター -->
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="filter">
     <!-- 色チャンネルを分解 -->
@@ -38,5 +39,7 @@
     <feDisplacementMap in="rgb-layers" in2="" scale="40"/>
   </filter>
 </svg>
+
+<a href="../index.html">目次へ戻る</a>
 </body>
 </html>

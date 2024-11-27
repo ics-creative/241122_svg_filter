@@ -11,3 +11,7 @@ body {
   place-items: center;
   gap: 48px;
 }
+
+a {
+  margin-bottom: 60px;
+}
