@@ -10,8 +10,5 @@ body {
   display: grid;
   place-items: center;
   gap: 48px;
-}
-
-a {
-  margin-bottom: 60px;
+  padding: 32px 0;
 }

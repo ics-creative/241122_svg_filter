@@ -45,6 +45,9 @@
       <feFuncG type="table" tableValues="0.21,0.24,0.46,0.86,0.96"/>
       <feFuncB type="table" tableValues="0.37,0.46,0.76,0.86,1.00"/>
     </feComponentTransfer>
+
+    <!-- はみ出したフィルターを元の画像サイズでクリッピング -->
+    <feComposite in2="SourceGraphic" operator="in"/>
   </filter>
 </svg>
 

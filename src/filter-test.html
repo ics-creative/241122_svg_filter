@@ -11,6 +11,10 @@
       filter: url(filters/filter.svg#filter);
     }
 
+    .video {
+      filter: url(#distortion);
+    }
+
     .text {
       display: block;
       font-weight: bold;
@@ -26,7 +30,7 @@
 <img src="images/image-1.jpg" alt="" class="image">
 
 <h2>videoタグの検証（動くブラウザもある）</h2>
-<video src="images/video.mp4" class="image" autoplay loop muted></video>
+<video src="images/video.mp4" class="video" autoplay loop muted></video>
 
 <h2>その他要素への検証</h2>
 <p>ただの文字なのでコピペできます。<br><span class="text">ABC漢字あいう🌟😺☔️</span></p>
@@ -39,7 +43,7 @@
 <!-- フィルター -->
 <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
   <filter id="distortion">
-    <feTurbulence type="fractalNoise" baseFrequency="0 0.3" numOctaves="2"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0 0.3" numOctaves="2" stitchTiles="noStitch"/>
     <feDisplacementMap in="SourceGraphic" in2="" scale="20"/>
   </filter>
 </svg>
