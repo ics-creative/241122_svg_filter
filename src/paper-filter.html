@@ -25,7 +25,7 @@
     <feDiffuseLighting  lighting-color="white" surfaceScale="2" >
       <feDistantLight azimuth="45" elevation="60" />
     </feDiffuseLighting>
-    <feGaussianBlur in="" stdDeviation="0.25" result="paper"/>
+    <feGaussianBlur stdDeviation="0.25" result="paper"/>
 
     <!-- 元画像を紙にマッピングしてゆがませる -->
     <feDisplacementMap in="SourceGraphic" in2="paper" scale="15" xChannelSelector="R" yChannelSelector="R" result="photo"/>
